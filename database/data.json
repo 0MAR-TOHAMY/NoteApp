@@ -1,0 +1,7 @@
+[
+  {
+    "name": "Admin",
+    "password": "admin",
+    "dir-path": "database/UsersData/Admin"
+  }
+]

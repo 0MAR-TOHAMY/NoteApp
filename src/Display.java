@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Display extends JPanel {
     JButton outBtn;
-    JLabel title, content, space;
+    JLabel title, content;
 
     public Display(String noteTitle, String noteContent){
         setPreferredSize(new Dimension(1200, 700));
@@ -43,18 +43,10 @@ public class Display extends JPanel {
         contentPanel.setBackground(Color.white);
         contentPanel.add(content, BorderLayout.NORTH);
 
-        JPanel sketchPanel = new JPanel(new BorderLayout());
-        sketchPanel.setPreferredSize(new Dimension(600, 600));
-        sketchPanel.setBackground(Color.decode("#EBF8FF"));
-
-        ImageIcon sketchSapce = new ImageIcon("database/UsersData/test.png");
-        Image scaled = sketchSapce.getImage().getScaledInstance(600, 350, Image.SCALE_SMOOTH);
-        ImageIcon scaledSpace = new ImageIcon(scaled);
-        space = new JLabel(scaledSpace);
-        sketchPanel.add(space, BorderLayout.NORTH);
+        MediaPanel mediaPanel = new  MediaPanel();
 
         this.add(topPanel, BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.WEST);
-        this.add(sketchPanel, BorderLayout.EAST);
+        this.add(mediaPanel, BorderLayout.EAST);
     }
 }

@@ -12,9 +12,10 @@ public class Note {
     static JPanel cardLayoutPanel;
 
     String longText = "This is a very long text that should wrap when it reaches 900 pixels in width. " +
-            "It will automatically wrap to the next line to fit within the specified width." + "This is a very long text that should wrap when it reaches 900 pixels in width. " +
-            "It will automatically wrap to the next line to fit within the specified width." + "This is a very long text that should wrap when it reaches 900 pixels in width. " +
-            "It will automatically wrap to the next line to fit within the specified width.";
+            "It will automatically wrap to the next line to fit within the specified width."
+            + "This is a very long text that should wrap when it reaches 900 pixels in width. " +
+            "It will automatically wrap to the next line to fit within the specified width."
+            + "This is a very long text that should wrap when it reaches 900 pixels in width. ";
 
     public Note(){
         JFrame frame = new JFrame("Note App");
@@ -41,11 +42,13 @@ public class Note {
         Sketch sketch = new Sketch();
         Display displayPage = new Display("myNote", longText);
 //        cardLayoutPanel.add(sketch, "sketch");
+        AddNote addNote = new AddNote();
         cardLayoutPanel.add(loginPage, "loginPage");
         cardLayoutPanel.add(SignPage, "SignPage");
         cardLayoutPanel.add(dashboard, "dashboard");
         cardLayoutPanel.add(secPage, "secPage");
         cardLayoutPanel.add(displayPage, "displayPage");
+        cardLayoutPanel.add(addNote, "addNote");
 
         loginPage.signInButton.addActionListener(event -> {
             userName = loginPage.usernameField.getText();
@@ -83,6 +86,8 @@ public class Note {
         loginPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "SignPage"));
         SignPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "loginPage"));
         secPage.back.addActionListener(e -> cardLayout.show(cardLayoutPanel, "dashboard"));
+        addNote.back.addActionListener(e -> cardLayout.show(cardLayoutPanel, "dashboard"));
+        dashboard.addBtn.addActionListener(e -> cardLayout.show(cardLayoutPanel, "addNote"));
 
         frame.add(cardLayoutPanel, BorderLayout.CENTER);
         frame.setVisible(true);

@@ -3,12 +3,13 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
 
-public class Security extends JPanel {
+public class AddNote extends JPanel {
     JButton submit, back;
-    JLabel title, title2;
+    JLabel title, title2, passLabel;
+    JTextField titleField;
     JPasswordField password;
 
-    public Security(){
+    public AddNote(){
         setPreferredSize(new Dimension(1200, 700));
         setLayout(new BorderLayout());
         setBackground(Color.white);
@@ -17,10 +18,8 @@ public class Security extends JPanel {
         leftPanel.setPreferredSize(new Dimension(500, 700));
         leftPanel.setLayout(new BorderLayout());
         leftPanel.setBackground(Color.white);
-        ImageIcon imageIcon = new ImageIcon("assets/security.jpg");
-        Image scaledImage2 = imageIcon.getImage().getScaledInstance(500, 545, Image.SCALE_SMOOTH);
-        ImageIcon icon = new ImageIcon(scaledImage2);
-        JLabel imageLabel = new JLabel(icon);
+        ImageIcon imageIcon = new ImageIcon("assets/illu5.jpg");
+        JLabel imageLabel = new JLabel(imageIcon);
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imageLabel.setVerticalAlignment(SwingConstants.CENTER);
         leftPanel.add(imageLabel);
@@ -30,26 +29,30 @@ public class Security extends JPanel {
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setLayout(null);
 
-        title = new JLabel("Enter your note");
-        title2 = new JLabel("security key");
+        title = new JLabel("Add New Note");
+        title2 = new JLabel("Note Title:");
+        passLabel = new JLabel("Password: (optional)");
         password = new JPasswordField();
-        submit = new JButton("Submit");
+        titleField = new JTextField();
+        submit = new JButton("Create");
         back = new JButton("Back");
 
-        title.setBounds(221, 205, 258, 38);
-        title2.setBounds(246, 243, 208, 38);
-        password.setBounds(100, 320, 500, 50);
-        submit.setBounds(100, 409, 500, 50);
-        back.setBounds(324, 486, 51, 24);
+        title.setBounds(221, 166, 258, 38);
+        title2.setBounds(100, 227, 105, 24);
+        titleField.setBounds(100, 264, 500, 50);
+        passLabel.setBounds(100, 321, 207, 24);
+        password.setBounds(100, 358, 500, 50);
+        submit.setBounds(100, 440, 500, 50);
+        back.setBounds(324, 510, 51, 24);
 
         Border paddingBorder = BorderFactory.createEmptyBorder(0, 10, 0, 0);
         Border lineBorder = BorderFactory.createLineBorder(Note.dark, 2);
         Border compoundBorder = new CompoundBorder(lineBorder, paddingBorder);
         password.setBorder(compoundBorder);
+        titleField.setBorder(compoundBorder);
         submit.setBorder(null);
         back.setBorder(null);
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title2.setHorizontalAlignment(SwingConstants.CENTER);
 
 
         submit.setFocusable(false);
@@ -61,6 +64,8 @@ public class Security extends JPanel {
 
         title.setForeground(Note.dark);
         title2.setForeground(Note.dark);
+        passLabel.setForeground(Note.dark);
+        titleField.setForeground(Note.dark);
         password.setForeground(Note.dark);
         submit.setBackground(Note.dark);
         submit.setForeground(Color.white);
@@ -68,7 +73,9 @@ public class Security extends JPanel {
         back.setForeground(Note.dark);
 
         title.setFont(Fonts.font6);
-        title2.setFont(Fonts.font6);
+        title2.setFont(Fonts.font3);
+        passLabel.setFont(Fonts.font3);
+        titleField.setFont(Fonts.font3);
         password.setFont(Fonts.font4);
         submit.setFont(Fonts.font2);
         back.setFont(Fonts.font3);
@@ -77,6 +84,8 @@ public class Security extends JPanel {
 
         rightPanel.add(title);
         rightPanel.add(title2);
+        rightPanel.add(titleField);
+        rightPanel.add(passLabel);
         rightPanel.add(submit);
         rightPanel.add(password);
         rightPanel.add(back);
