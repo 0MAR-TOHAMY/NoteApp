@@ -11,7 +11,7 @@ public class MediaPanel extends JPanel {
 
     private static int GRID_ROWS = 1;
     public MediaPanel() {
-        setPreferredSize(new Dimension(600, 550));
+        setPreferredSize(new Dimension(600, 600));
         setLayout(new BorderLayout());
         setBackground(Color.white);
 

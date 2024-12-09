@@ -11,7 +11,7 @@ public class ScrollBarStyler {
 
     // Custom ScrollBar UI
     static class CustomScrollBarUI extends BasicScrollBarUI {
-        private static final int SCROLLBAR_WIDTH = 6;
+        private static final int SCROLLBAR_WIDTH = 4;
 
         @Override
         protected void configureScrollBarColors() {
@@ -44,7 +44,7 @@ public class ScrollBarStyler {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             // Paint a rounded thumb
-            g2d.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 10, 10);
+            g2d.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 1, 1);
             g2d.dispose();
         }
 
