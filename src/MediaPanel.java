@@ -11,7 +11,7 @@ public class MediaPanel extends JPanel {
 
     private static int GRID_ROWS = 1;
     public MediaPanel() {
-        setPreferredSize(new Dimension(600, 600));
+        setPreferredSize(new Dimension(600, 550));
         setLayout(new BorderLayout());
         setBackground(Color.white);
 
@@ -26,7 +26,7 @@ public class MediaPanel extends JPanel {
         for (String imagePath : imagePaths) {
             try {
                 BufferedImage image = ImageIO.read(new File(imagePath));
-                Image scaledImage = image.getScaledInstance(580, 350, Image.SCALE_SMOOTH);
+                Image scaledImage = image.getScaledInstance(590, 350, Image.SCALE_SMOOTH);
                 JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
                 imagePanel.add(imageLabel);
             } catch (IOException e) {
@@ -35,9 +35,12 @@ public class MediaPanel extends JPanel {
             }
         }
 
+        
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(600, 600));
+        
+        ScrollBarStyler.styleScrollPane(scrollPane);
 
         add(scrollPane, BorderLayout.CENTER);
     }
