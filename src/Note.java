@@ -40,7 +40,7 @@ public class Note {
         Security secPage = new Security();
         Sketch sketch = new Sketch();
         Display displayPage = new Display("myNote", longText);
-        cardLayoutPanel.add(sketch, "sketch");
+//        cardLayoutPanel.add(sketch, "sketch");
         cardLayoutPanel.add(loginPage, "loginPage");
         cardLayoutPanel.add(SignPage, "SignPage");
         cardLayoutPanel.add(dashboard, "dashboard");
