@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Display extends JPanel {
     private JButton outBtn, clearTextBtn, changeTitleBtn;
-    private JLabel title;
+    static JLabel title;
     private JTextArea textArea;
 
     public Display(String noteTitle, String noteContent){
@@ -63,12 +63,7 @@ public class Display extends JPanel {
         changeTitleBtn.setBackground(Note.dark);
         changeTitleBtn.setForeground(Color.white);
         changeTitleBtn.setFont(Fonts.font2);
-        changeTitleBtn.addActionListener(e -> {
-            String newTitle = JOptionPane.showInputDialog(this, "Enter new title:", "Change Title", JOptionPane.PLAIN_MESSAGE);
-            if (newTitle != null && !newTitle.trim().isEmpty()) {
-                title.setText(newTitle); // Updates the title label
-            }
-        });
+        changeTitleBtn.addActionListener(e -> new Change());
         buttonsPanel.add(changeTitleBtn);
 
         textArea = new JTextArea(noteContent);
