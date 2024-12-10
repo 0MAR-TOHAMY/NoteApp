@@ -46,6 +46,8 @@ public class Display extends JPanel {
         JPanel sketchPanel = new JPanel(new BorderLayout());
         sketchPanel.setPreferredSize(new Dimension(600, 600));
         sketchPanel.setBackground(Color.decode("#EBF8FF"));
+        
+        MediaPanel mediaPanel = new  MediaPanel();
 
         JPanel addingPanel = new JPanel(null);
         addingPanel.setPreferredSize(new Dimension(600, 50));
@@ -60,6 +62,7 @@ public class Display extends JPanel {
         addSketchBtn.setForeground(Color.white);
         addSketchBtn.setFont(Fonts.font2);
         addingPanel.add(addSketchBtn);
+
         JButton addImageBtn = new JButton("Add Image");
         addImageBtn.setBounds(300, 5, 295, 40);
         addImageBtn.setBorder(null);
@@ -68,9 +71,14 @@ public class Display extends JPanel {
         addImageBtn.setBackground(Note.dark);
         addImageBtn.setForeground(Color.white);
         addImageBtn.setFont(Fonts.font2);
+        addImageBtn.addActionListener(e -> {
+            String img = FileChooser.chooseImageFile();
+            if (img!= null) {
+                mediaPanel.addImage(img);
+            }
+        });
         addingPanel.add(addImageBtn);
 
-        MediaPanel mediaPanel = new  MediaPanel();
         sketchPanel.add(addingPanel, BorderLayout.NORTH);
         sketchPanel.add(mediaPanel, BorderLayout.CENTER);
 
