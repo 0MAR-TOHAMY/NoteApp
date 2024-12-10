@@ -3,8 +3,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Display extends JPanel {
-    JButton outBtn;
-    JLabel title, content;
+    private JButton outBtn, clearTextBtn, changeTitleBtn;
+    private JLabel title;
+    private JTextArea textArea;
 
     public Display(String noteTitle, String noteContent){
         setPreferredSize(new Dimension(1200, 700));
@@ -33,28 +34,72 @@ public class Display extends JPanel {
         outBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "dashboard"));
         topPanel.add(outBtn);
 
-        content = new JLabel("<html><div style='width:430px;'>" + noteContent + "</div></html>");
-        content.setFont(Fonts.font7);
-        content.setForeground(Note.dark);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setPreferredSize(new Dimension(585, 600));
-        contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        contentPanel.setBackground(Color.white);
-        contentPanel.add(content, BorderLayout.NORTH);
+        contentPanel.setPreferredSize(new Dimension(590, 600));
+        contentPanel.setBackground(Color.decode("#EBF8FF"));
+
+
+        JPanel buttonsPanel = new JPanel(null);
+        buttonsPanel.setPreferredSize(new Dimension(600, 50));
+        buttonsPanel.setBackground(Color.decode("#EBF8FF"));
+
+        clearTextBtn = new JButton("Clear Text");
+        clearTextBtn.setBounds(5, 5, 285, 40);
+        clearTextBtn.setBorder(null);
+        clearTextBtn.setFocusable(false);
+        clearTextBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        clearTextBtn.setBackground(Note.dark);
+        clearTextBtn.setForeground(Color.white);
+        clearTextBtn.setFont(Fonts.font2);
+        clearTextBtn.addActionListener(e -> textArea.setText(""));
+        buttonsPanel.add(clearTextBtn);
+
+        changeTitleBtn = new JButton("Change Title");
+        changeTitleBtn.setBounds(295, 5, 285, 40);
+        changeTitleBtn.setBorder(null);
+        changeTitleBtn.setFocusable(false);
+        changeTitleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        changeTitleBtn.setBackground(Note.dark);
+        changeTitleBtn.setForeground(Color.white);
+        changeTitleBtn.setFont(Fonts.font2);
+        changeTitleBtn.addActionListener(e -> {
+            String newTitle = JOptionPane.showInputDialog(this, "Enter new title:", "Change Title", JOptionPane.PLAIN_MESSAGE);
+            if (newTitle != null && !newTitle.trim().isEmpty()) {
+                title.setText(newTitle); // Updates the title label
+            }
+        });
+        buttonsPanel.add(changeTitleBtn);
+
+        textArea = new JTextArea(noteContent);
+        textArea.setFont(Fonts.font3);
+        textArea.setForeground(Note.dark);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JScrollPane textScrollPane = new JScrollPane(textArea);
+        textScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        textScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        textScrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        textScrollPane.setBackground(Color.decode("#EBF8FF"));
+        ScrollBarStyler.styleScrollPane(textScrollPane);
+
+        contentPanel.add(buttonsPanel, BorderLayout.NORTH);
+        contentPanel.add(textScrollPane, BorderLayout.CENTER);
 
         JPanel sketchPanel = new JPanel(new BorderLayout());
-        sketchPanel.setPreferredSize(new Dimension(600, 600));
+        sketchPanel.setPreferredSize(new Dimension(590, 600));
         sketchPanel.setBackground(Color.decode("#EBF8FF"));
         
         MediaPanel mediaPanel = new  MediaPanel();
 
         JPanel addingPanel = new JPanel(null);
-        addingPanel.setPreferredSize(new Dimension(600, 50));
+        addingPanel.setPreferredSize(new Dimension(590, 50));
         addingPanel.setBackground(Color.decode("#EBF8FF"));
 
         JButton addSketchBtn = new JButton("Add Sketch");
-        addSketchBtn.setBounds(0, 5, 295, 40);
+        addSketchBtn.setBounds(0, 5, 290, 40);
         addSketchBtn.setBorder(null);
         addSketchBtn.setFocusable(false);
         addSketchBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -67,7 +112,7 @@ public class Display extends JPanel {
         addingPanel.add(addSketchBtn);
 
         JButton addImageBtn = new JButton("Add Image");
-        addImageBtn.setBounds(300, 5, 295, 40);
+        addImageBtn.setBounds(295, 5, 290, 40);
         addImageBtn.setBorder(null);
         addImageBtn.setFocusable(false);
         addImageBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
