@@ -16,7 +16,7 @@ public class ScrollBarStyler {
         @Override
         protected void configureScrollBarColors() {
             thumbColor = Note.dark;
-            trackColor = Color.WHITE;
+            trackColor = Color.decode("#EBF8FF");
         }
 
         @Override
