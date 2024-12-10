@@ -61,6 +61,9 @@ public class Display extends JPanel {
         addSketchBtn.setBackground(Note.dark);
         addSketchBtn.setForeground(Color.white);
         addSketchBtn.setFont(Fonts.font2);
+        addSketchBtn.addActionListener(e -> {
+            Note.cardLayout.show(Note.cardLayoutPanel, "sketch");
+        });
         addingPanel.add(addSketchBtn);
 
         JButton addImageBtn = new JButton("Add Image");

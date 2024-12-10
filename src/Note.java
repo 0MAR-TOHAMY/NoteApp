@@ -41,7 +41,6 @@ public class Note {
         Security secPage = new Security();
         Sketch sketch = new Sketch();
         Display displayPage = new Display("myNote", longText);
-//        cardLayoutPanel.add(sketch, "sketch");
         AddNote addNote = new AddNote();
         cardLayoutPanel.add(loginPage, "loginPage");
         cardLayoutPanel.add(SignPage, "SignPage");
@@ -49,6 +48,7 @@ public class Note {
         cardLayoutPanel.add(secPage, "secPage");
         cardLayoutPanel.add(displayPage, "displayPage");
         cardLayoutPanel.add(addNote, "addNote");
+        cardLayoutPanel.add(sketch, "sketch");
 
         loginPage.signInButton.addActionListener(event -> {
             userName = loginPage.usernameField.getText();
