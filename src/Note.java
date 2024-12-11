@@ -1,5 +1,11 @@
+import models.SecureNote;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class Note {
 
@@ -73,6 +79,7 @@ public class Note {
       dashboard.welcome.setText("Hi, " + userName);
       try {
         if (UserAuthentication.authenticateRegister(userName, password, confirm) == 1) {
+          // here we should call createUser()
           cardLayout.show(cardLayoutPanel, "dashboard");
         } else if (UserAuthentication.authenticateRegister(userName, password, confirm) == -1) {
           new Error("This Username Is Already Exist");
