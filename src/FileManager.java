@@ -104,18 +104,18 @@ public class FileManager {
 
   // this will be used in the user class to make a note
   public static void saveNote(Note note) throws IOException {
-    String notePath = note.getFolderPath();
-    Path noteFolderPath = Paths.get(notePath);
-    Path noteTextFilePath = Paths.get(notePath + "/content.txt");
+    String noteFolderPath = note.getFolderPath();
+    Path notePath = Paths.get(noteFolderPath);
+    Path noteTextFilePath = Paths.get(noteFolderPath + "/content.txt");
     // create the note folder
-    Files.createDirectories(noteFolderPath);
+    Files.createDirectories(notePath);
     // create the note json file
-    createNoteJsonFile(notePath, note);
+    createNoteJsonFile(noteFolderPath, note);
 
     // create the text file
     Files.createFile(noteTextFilePath);
     // save the note content
-    saveNoteContentToTxtFile(notePath + "/content.txt", note.getContent());
+    saveNoteContentToTxtFile(noteFolderPath + "/content.txt", note.getContent());
 
   }
 
@@ -161,7 +161,7 @@ public class FileManager {
       noteJsonObject.put("sketch", makeSketchJsonObject(sketch));
 
       // adding the json object to the json file
-      Files.write(Paths.get(notePath + "note.json"), noteJsonObject.toString(4).getBytes());
+      Files.write(jsonFilePath, noteJsonObject.toString(4).getBytes());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

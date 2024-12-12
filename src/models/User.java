@@ -39,11 +39,13 @@ public class User {
     return new SecureNote(title, password, noteFolderPath);
   }
 
-  public void saveNote(Note note) throws IOException {
+  public void saveNote(Note note, String content) throws IOException {
+    note.setContent(content);
     src.FileManager.saveNote(note);
   }
 
-  public void saveNote(SecureNote note) throws IOException {
+  public void saveNote(SecureNote note, String content) throws IOException {
+    note.setContent(content);
     src.FileManager.saveSecureNote(note);
   }
 
