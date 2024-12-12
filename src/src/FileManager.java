@@ -112,6 +112,7 @@ public class FileManager {
     saveNoteContentToTxtFile(noteFolderPath + "/content.txt", note.getContent());
   }
 
+<<<<<<< HEAD
   public static void saveSecureNote(SecureNote note) throws IOException {
     saveNote(note);
     Path jsonFilePath = Paths.get(note.getFolderPath() + "/note.json");
@@ -121,6 +122,8 @@ public class FileManager {
     Files.write(jsonFilePath, noteJsonObject.toString(4).getBytes());
   }
 
+=======
+>>>>>>> 43b6d1b7097c0687e4e524e0f1d6fe9d957be099
   // these 4 methods are helpers for the create note method
   private static void saveNoteContentToTxtFile(String filePath, String content) {
     try (FileWriter writer = new FileWriter(filePath)) {
@@ -134,6 +137,7 @@ public class FileManager {
     Path jsonFilePath = Paths.get(notePath + "/note.json");
     List<Image> images = note.getImages();
     Sketch sketch = note.sketch;
+
     try {
       Files.createFile(jsonFilePath);
       JSONObject noteJsonObject = new JSONObject();
@@ -143,6 +147,10 @@ public class FileManager {
 
       // adding the isSecure property
       noteJsonObject.put("isSecure", note.isSecure());
+
+      if (note.isSecure()) {
+        noteJsonObject.put("password", ((SecureNote) note).getPassword());
+      }
 
       // adding the images array
       JSONArray imagesArray = new JSONArray();
@@ -229,7 +237,7 @@ public class FileManager {
       if (isSecure) {
         String password = noteObject.getString("password");
         return new SecureNote(title, password, folderPath);
-      }else
+      } else
         return new Note(title, folderPath);
 
     } catch (IOException e) {

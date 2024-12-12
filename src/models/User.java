@@ -41,10 +41,6 @@ public class User {
     src.FileManager.saveNote(note);
   }
 
-  public void saveNote(SecureNote note, String content) throws IOException {
-    note.setContent(content);
-    src.FileManager.saveSecureNote(note);
-  }
 
   public Note getNote(Note note) throws IOException {
     return src.FileManager.getNote(note);
