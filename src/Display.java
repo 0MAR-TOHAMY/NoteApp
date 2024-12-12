@@ -34,9 +34,11 @@ public class Display extends JPanel {
         outBtn.setFocusable(false);
         outBtn.addActionListener(e -> {
             try {
+                AddNote.sessionNote.setTitle(title.getText());
                 Note.user.saveNote(AddNote.sessionNote, textArea.getText());
                 Note.user.loadNotes();
                 Dashboard dashboard = new Dashboard();
+                dashboard.welcome.setText("Hi, " + Note.user.userName);
                 Note.cardLayoutPanel.add(dashboard, "dashboard");
                 Note.cardLayout.show(Note.cardLayoutPanel, "dashboard");
             } catch (IOException ex) {
@@ -128,7 +130,12 @@ public class Display extends JPanel {
         addImageBtn.addActionListener(e -> {
             String img = FileChooser.chooseImageFile();
             if (img!= null) {
-                mediaPanel.addImage(img);
+                try {
+                    mediaPanel.addImage(img);
+                    AddNote.sessionNote.addImage(img);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         addingPanel.add(addImageBtn);

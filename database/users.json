@@ -1,5 +1,12 @@
-{"users": [{
-    "folderPath": "./database/users/karim",
-    "password": "123456",
-    "userName": "karim"
-}]}
+{"users": [
+    {
+        "folderPath": "./database/users/karim",
+        "password": "123456",
+        "userName": "karim"
+    },
+    {
+        "folderPath": "./database/users/admin",
+        "password": "admin",
+        "userName": "admin"
+    }
+]}

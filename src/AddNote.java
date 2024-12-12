@@ -96,7 +96,6 @@ public class AddNote extends JPanel {
                 Display displayPage = new Display(title, "");
                 Note.cardLayoutPanel.add(displayPage, "displayPage");
                 Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
-                System.out.println(sessionNote.getFolderPath());
             }else {
                 new Error("Please, Enter a valid note title.");
             }

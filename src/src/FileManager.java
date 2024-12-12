@@ -112,7 +112,6 @@ public class FileManager {
     saveNoteContentToTxtFile(noteFolderPath + "/content.txt", note.getContent());
   }
 
-<<<<<<< HEAD
   public static void saveSecureNote(SecureNote note) throws IOException {
     saveNote(note);
     Path jsonFilePath = Paths.get(note.getFolderPath() + "/note.json");
@@ -122,8 +121,6 @@ public class FileManager {
     Files.write(jsonFilePath, noteJsonObject.toString(4).getBytes());
   }
 
-=======
->>>>>>> 43b6d1b7097c0687e4e524e0f1d6fe9d957be099
   // these 4 methods are helpers for the create note method
   private static void saveNoteContentToTxtFile(String filePath, String content) {
     try (FileWriter writer = new FileWriter(filePath)) {

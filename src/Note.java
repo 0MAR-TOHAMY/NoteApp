@@ -74,7 +74,7 @@ public class Note {
           user = FileManager.users.get(userName);
           Dashboard dashboard = new Dashboard();
           cardLayoutPanel.add(dashboard, "dashboard");
-          dashboard.welcome.setText("Hi, " + user.userName);
+          dashboard.welcome.setText("Hi, " + userName);
           cardLayout.show(cardLayoutPanel, "dashboard");
         } else if (UserAuthentication.authenticateRegister(userName, password, confirm) == -1) {
           new Error("This Username Is Already Exist");
