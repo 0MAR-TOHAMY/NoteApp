@@ -34,13 +34,13 @@ public class Note {
 
     Login loginPage = new Login();
     Sign SignPage = new Sign();
-    Dashboard dashboard = new Dashboard();
+
     Security secPage = new Security();
     Sketch sketch = new Sketch();
     AddNote addNote = new AddNote();
     cardLayoutPanel.add(loginPage, "loginPage");
     cardLayoutPanel.add(SignPage, "SignPage");
-    cardLayoutPanel.add(dashboard, "dashboard");
+
     cardLayoutPanel.add(secPage, "secPage");
     cardLayoutPanel.add(addNote, "addNote");
     cardLayoutPanel.add(sketch, "sketch");
@@ -51,10 +51,10 @@ public class Note {
       try {
         if (UserAuthentication.authenticateLogin(userName, password)) {
           user = FileManager.users.get(userName);
-          System.out.println(user.folderPath);
           user.loadNotes();
+          Dashboard dashboard = new Dashboard();
+          cardLayoutPanel.add(dashboard, "dashboard");
           dashboard.welcome.setText("Hi, " + user.userName);
-          dashboard.notes = user.notes;
           cardLayout.show(cardLayoutPanel, "dashboard");
         } else {
           new Error("Wrong Username or Password");
@@ -71,6 +71,8 @@ public class Note {
       try {
         if (UserAuthentication.authenticateRegister(userName, password, confirm) == 1) {
           user = FileManager.users.get(userName);
+          Dashboard dashboard = new Dashboard();
+          cardLayoutPanel.add(dashboard, "dashboard");
           dashboard.welcome.setText("Hi, " + user.userName);
           cardLayout.show(cardLayoutPanel, "dashboard");
         } else if (UserAuthentication.authenticateRegister(userName, password, confirm) == -1) {
@@ -85,12 +87,10 @@ public class Note {
       }
     });
 
-    dashboard.outBtn.addActionListener(e -> cardLayout.show(cardLayoutPanel, "loginPage"));
     loginPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "SignPage"));
     SignPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "loginPage"));
     secPage.back.addActionListener(e -> cardLayout.show(cardLayoutPanel, "dashboard"));
     addNote.back.addActionListener(e -> cardLayout.show(cardLayoutPanel, "dashboard"));
-    dashboard.addBtn.addActionListener(e -> cardLayout.show(cardLayoutPanel, "addNote"));
 
     frame.add(cardLayoutPanel, BorderLayout.CENTER);
     frame.setVisible(true);

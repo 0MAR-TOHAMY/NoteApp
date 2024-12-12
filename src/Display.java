@@ -35,6 +35,9 @@ public class Display extends JPanel {
         outBtn.addActionListener(e -> {
             try {
                 Note.user.saveNote(AddNote.sessionNote, textArea.getText());
+                Note.user.loadNotes();
+                Dashboard dashboard = new Dashboard();
+                Note.cardLayoutPanel.add(dashboard, "dashboard");
                 Note.cardLayout.show(Note.cardLayoutPanel, "dashboard");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

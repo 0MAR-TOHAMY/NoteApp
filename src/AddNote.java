@@ -88,6 +88,7 @@ public class AddNote extends JPanel {
             String pass = password.getText();
             if (title.length() > 0){
                 if (pass.length() > 0){
+                    System.out.println(pass);
                     sessionNote = Note.user.createNote(title, pass);
                 }else {
                     sessionNote = Note.user.createNote(title);

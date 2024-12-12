@@ -1,14 +1,10 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Dashboard extends JPanel {
   JButton addBtn, outBtn;
   JLabel welcome;
-
-  List<models.Note> notes = new ArrayList<>();
 
   public Dashboard() {
     setPreferredSize(new Dimension(1200, 700));
@@ -34,6 +30,7 @@ public class Dashboard extends JPanel {
     addBtn.setBackground(Note.dark);
     addBtn.setBorder(null);
     addBtn.setFocusable(false);
+    addBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "addNote"));
     topPanel.add(addBtn);
 
     ImageIcon outIcon = new ImageIcon("./assets/out.png");
@@ -44,6 +41,7 @@ public class Dashboard extends JPanel {
     outBtn.setBackground(Note.dark);
     outBtn.setBorder(null);
     outBtn.setFocusable(false);
+    outBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "loginPage"));
     topPanel.add(outBtn);
 
     JPanel contentPanel = new JPanel();
@@ -53,7 +51,7 @@ public class Dashboard extends JPanel {
     contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
     contentPanel.setBackground(Color.decode("#EBF8FF"));
 
-    for (models.Note note : notes){
+    for (models.Note note : Note.user.notes){
       contentPanel.add(new Item(note.getTitle(), note.isSecure()));
     }
 
