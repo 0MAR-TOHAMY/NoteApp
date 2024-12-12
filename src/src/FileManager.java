@@ -108,7 +108,7 @@ public class FileManager {
 
     Files.createDirectories(notePath);
     createNoteJsonFile(noteFolderPath, note);
-    Files.createFile(noteTextFilePath);
+
     saveNoteContentToTxtFile(noteFolderPath + "/content.txt", note.getContent());
   }
 
@@ -136,7 +136,7 @@ public class FileManager {
     Sketch sketch = note.sketch;
 
     try {
-      Files.createFile(jsonFilePath);
+      File jsonFile = new File(jsonFilePath.toString());
       JSONObject noteJsonObject = new JSONObject();
 
       // adding the title to the note
@@ -160,7 +160,7 @@ public class FileManager {
       noteJsonObject.put("sketch", makeSketchJsonObject(sketch));
 
       // adding the json object to the json file
-      Files.write(jsonFilePath, noteJsonObject.toString(4).getBytes());
+      Files.write(jsonFile.toPath(), noteJsonObject.toString(4).getBytes());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
