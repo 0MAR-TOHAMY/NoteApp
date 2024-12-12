@@ -1,6 +1,7 @@
 {
+    "password": "notepassword",
     "images": [],
     "isSecure": true,
-    "title": "omar",
+    "title": "title",
     "sketch": {}
 }
