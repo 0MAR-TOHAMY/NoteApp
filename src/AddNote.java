@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -8,6 +9,8 @@ public class AddNote extends JPanel {
     JLabel title, title2, passLabel;
     JTextField titleField;
     JPasswordField password;
+
+    static models.Note sessionNote;
 
     public AddNote(){
         setPreferredSize(new Dimension(1200, 700));
@@ -80,7 +83,23 @@ public class AddNote extends JPanel {
         submit.setFont(Fonts.font2);
         back.setFont(Fonts.font3);
 
-        submit.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "displayPage"));
+        submit.addActionListener(e -> {
+            String title = titleField.getText();
+            String pass = password.getText();
+            if (title.length() > 0){
+                if (pass.length() > 0){
+                    System.out.println(pass);
+                    sessionNote = Note.user.createNote(title, pass);
+                }else {
+                    sessionNote = Note.user.createNote(title);
+                }
+                Display displayPage = new Display(title, "");
+                Note.cardLayoutPanel.add(displayPage, "displayPage");
+                Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
+            }else {
+                new Error("Please, Enter a valid note title.");
+            }
+        });
 
         rightPanel.add(title);
         rightPanel.add(title2);

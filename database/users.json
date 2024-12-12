@@ -1,4 +1,5 @@
 {"users": [{
-    "password": "741852",
-    "userName": "mohamed"
+    "folderPath": "./database/users/karim",
+    "password": "123456",
+    "userName": "karim"
 }]}

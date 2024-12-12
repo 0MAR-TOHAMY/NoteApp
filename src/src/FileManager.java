@@ -26,15 +26,13 @@ public class FileManager {
 
   public static void loadAllUsers() {
     try {
-      // Read the content of the json file as a String
+
       String filePath = "./database/users.json";
       String content = new String(Files.readAllBytes(Paths.get(filePath)));
 
-      // Parse the String into a JSONObject
       JSONObject jsonObject = new JSONObject(content);
       JSONArray usersArray = jsonObject.getJSONArray("users");
 
-      // Storing users into a hash map
       for (int i = 0; i < usersArray.length(); i++) {
         String userName = usersArray.getJSONObject(i).getString("userName");
         String password = usersArray.getJSONObject(i).getString("password");
@@ -42,7 +40,6 @@ public class FileManager {
 
         users.put(userName, new User(userName, password, folderPath));
       }
-
     } catch (IOException e) {
       System.err.println("Error reading the file: " + e.getMessage());
     } catch (org.json.JSONException e) {
@@ -50,15 +47,15 @@ public class FileManager {
     }
   }
 
-
-  // the following 2 methods for creating the user
   public User createUser(String userName, String password) {
     Path folderPath = Paths.get("./database/users/" + userName);
+    String stringPath = folderPath.toString();
+    String readablePath = stringPath.replace("\\", "/");
     try {
-      Files.createDirectories(folderPath); // making a new folder for the user
-      storeUserInJSONFile(userName, password, folderPath.toString()); // store in the json file
-      users.put(userName, new User(userName, password, folderPath.toString())); //store the user in the hashmap
-      return new User(userName, password, folderPath.toString());
+      Files.createDirectories(folderPath);
+      storeUserInJSONFile(userName, password, readablePath);
+      users.put(userName, new User(userName, password, readablePath));
+      return new User(userName, password, readablePath);
     } catch (IOException e) {
       System.err.println("Failed to create the folder: " + e.getMessage());
     }
@@ -68,7 +65,8 @@ public class FileManager {
   private JSONObject createUserJsonObject(String userName, String password, String folderPath) {
     return new JSONObject()
             .put("userName", userName)
-            .put("password", password);
+            .put("password", password)
+            .put("folderPath", folderPath);
   }
 
   private void storeUserInJSONFile(String userName, String password, String folderPath) {
@@ -78,15 +76,15 @@ public class FileManager {
 
       JSONObject jsonObject;
       if (content.trim().isEmpty()) {
-        jsonObject = new JSONObject(); // Empty file, create new JSONObject
+        jsonObject = new JSONObject();
       } else {
-        jsonObject = new JSONObject(content); // Parse the existing content
+        jsonObject = new JSONObject(content);
       }
 
       JSONArray usersArray = jsonObject.optJSONArray("users");
       if (usersArray == null) {
-        usersArray = new JSONArray(); // Initialize an empty array if "users" doesn't exist
-        jsonObject.put("users", usersArray); // Add the "users" array to the JSON object
+        usersArray = new JSONArray();
+        jsonObject.put("users", usersArray);
       }
 
       usersArray.put(createUserJsonObject(userName, password, folderPath));
@@ -107,16 +105,11 @@ public class FileManager {
     String noteFolderPath = note.getFolderPath();
     Path notePath = Paths.get(noteFolderPath);
     Path noteTextFilePath = Paths.get(noteFolderPath + "/content.txt");
-    // create the note folder
+
     Files.createDirectories(notePath);
-    // create the note json file
     createNoteJsonFile(noteFolderPath, note);
 
-    // create the text file
-    Files.createFile(noteTextFilePath);
-    // save the note content
     saveNoteContentToTxtFile(noteFolderPath + "/content.txt", note.getContent());
-
   }
 
   public static void saveSecureNote(SecureNote note) throws IOException {
@@ -141,8 +134,9 @@ public class FileManager {
     Path jsonFilePath = Paths.get(notePath + "/note.json");
     List<Image> images = note.getImages();
     Sketch sketch = note.sketch;
+
     try {
-      Files.createFile(jsonFilePath);
+      File jsonFile = new File(jsonFilePath.toString());
       JSONObject noteJsonObject = new JSONObject();
 
       // adding the title to the note
@@ -150,6 +144,10 @@ public class FileManager {
 
       // adding the isSecure property
       noteJsonObject.put("isSecure", note.isSecure());
+
+      if (note.isSecure()) {
+        noteJsonObject.put("password", ((SecureNote) note).getPassword());
+      }
 
       // adding the images array
       JSONArray imagesArray = new JSONArray();
@@ -162,7 +160,7 @@ public class FileManager {
       noteJsonObject.put("sketch", makeSketchJsonObject(sketch));
 
       // adding the json object to the json file
-      Files.write(jsonFilePath, noteJsonObject.toString(4).getBytes());
+      Files.write(jsonFile.toPath(), noteJsonObject.toString(4).getBytes());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -291,15 +289,13 @@ public class FileManager {
     return new Sketch(title, createdAt, filePath);
   }
 
-  // this may be usefull
-  private File findFileInFolder(File folder, String fileName) {
 
+  private File findFileInFolder(File folder, String fileName) {
     File[] files = folder.listFiles();
     if (files != null) {
       for (File file : files) {
-        // Check if it's the note.json file
         if (file.isFile() && file.getName().equalsIgnoreCase(fileName)) {
-          return file; // Return the File object if found
+          return file;
         }
       }
     }

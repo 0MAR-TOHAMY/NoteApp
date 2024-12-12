@@ -30,6 +30,7 @@ public class Dashboard extends JPanel {
     addBtn.setBackground(Note.dark);
     addBtn.setBorder(null);
     addBtn.setFocusable(false);
+    addBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "addNote"));
     topPanel.add(addBtn);
 
     ImageIcon outIcon = new ImageIcon("./assets/out.png");
@@ -40,6 +41,7 @@ public class Dashboard extends JPanel {
     outBtn.setBackground(Note.dark);
     outBtn.setBorder(null);
     outBtn.setFocusable(false);
+    outBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "loginPage"));
     topPanel.add(outBtn);
 
     JPanel contentPanel = new JPanel();
@@ -49,9 +51,9 @@ public class Dashboard extends JPanel {
     contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
     contentPanel.setBackground(Color.decode("#EBF8FF"));
 
-    contentPanel.add(new Item("MyDay", 25, true));
-    contentPanel.add(new Item("MyDay", 25, false));
-    contentPanel.add(new Item("MyDay", 25, true));
+    for (models.Note note : Note.user.notes){
+      contentPanel.add(new Item(note.getTitle(), note.isSecure()));
+    }
 
     this.add(topPanel, BorderLayout.NORTH);
     this.add(contentPanel, BorderLayout.CENTER);
