@@ -56,13 +56,24 @@ public class Note {
   }
 
   public void addImage(String imageOriginalPath) throws IOException {
-    String imageTitle = Paths.get(imageOriginalPath).getFileName().toString();
+    System.out.println(imageOriginalPath);
+    String imageTitle = Paths.get(imageOriginalPath.substring(1)).getFileName().toString();
     Long createdAt = System.currentTimeMillis();
     String imagePath = this.folderPath + "/images/" + imageTitle;
     Image newImage = new Image(imageTitle, createdAt, imagePath);
     // storing the image in the images folder
+<<<<<<< HEAD
     src.FileManager.addImageToNoteFolder(imageTitle, imageOriginalPath, this.folderPath);
+=======
+    src.FileManager.addImageToNoteFolder(imageTitle, imageOriginalPath.substring(1), this.folderPath);
+    // adding the image to the images array so it can be displayed
+>>>>>>> 6f5871662aea918ea66a531ce634ea49b2e4b323
     this.images.add(newImage);
+  }
+
+  public String getImageTitle(String imagePath) {
+    String[] folders = imagePath.split("/");
+    return folders[folders.length - 1];
   }
 
   public Image removeImage(int index) throws IOException {
