@@ -1,0 +1,15 @@
+public class Main {
+    public static void main(String[] args) {
+        // Create an ArrayList of objects with titles
+        ArrayList<Note> notes = new ArrayList<>();
+        notes.add(new Note("Title 1", "Content 1"));
+        notes.add(new Note("Title 2", "Content 2"));
+        notes.add(new Note("Title 3", "Content 3"));
+
+        // Loop through the ArrayList and display titles
+        System.out.println("Note Titles:");
+        for (Note note : notes) {
+            System.out.println(note.getTitle());
+        }
+    }
+}

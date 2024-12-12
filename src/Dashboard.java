@@ -53,6 +53,7 @@ public class Dashboard extends JPanel {
 
     for (models.Note note : Note.user.notes){
       contentPanel.add(new Item(note.getTitle(), note.isSecure()));
+      System.out.println(note.getFolderPath());
     }
 
     this.add(topPanel, BorderLayout.NORTH);

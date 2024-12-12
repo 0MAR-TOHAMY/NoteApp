@@ -62,7 +62,6 @@ public class Note {
     Image newImage = new Image(imageTitle, createdAt, imagePath);
     // storing the image in the images folder
     src.FileManager.addImageToNoteFolder(imageTitle, imageOriginalPath, this.folderPath);
-    // adding the image to the images array so it can be displayed
     this.images.add(newImage);
   }
 
