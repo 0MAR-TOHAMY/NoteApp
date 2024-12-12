@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-// You shouldn't use this class for creating users
-// instead use FileManager.createUser()
-
 public class User {
   public String userName;
   public String password;
@@ -39,11 +36,13 @@ public class User {
     return new SecureNote(title, password, noteFolderPath);
   }
 
-  public void saveNote(Note note) throws IOException {
+  public void saveNote(Note note, String content) throws IOException {
+    note.setContent(content);
     src.FileManager.saveNote(note);
   }
 
-  public void saveNote(SecureNote note) throws IOException {
+  public void saveNote(SecureNote note, String content) throws IOException {
+    note.setContent(content);
     src.FileManager.saveSecureNote(note);
   }
 

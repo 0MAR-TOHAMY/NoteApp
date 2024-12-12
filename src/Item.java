@@ -6,11 +6,11 @@ public class Item extends JPanel {
   JLabel Title, secure;
   JButton showBtn;
 
-  public Item(String title, int id, boolean pass) {
+  public Item(String title, boolean pass) {
     setLayout(new BorderLayout());
     setBackground(Note.dark);
 
-    Title = new JLabel(title + id);
+    Title = new JLabel(title);
     Title.setBorder(new EmptyBorder(0, 20, 0, 0));
     Title.setFont(Fonts.font3);
     Title.setForeground(Color.white);

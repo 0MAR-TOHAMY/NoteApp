@@ -1,13 +1,10 @@
-import models.SecureNote;
-
+import models.User;
+import src.FileManager;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class Note {
+  static User user;
 
   static Color dark = Color.decode("#316DA3");
   static Color sub = Color.decode("#E8505C");
@@ -16,12 +13,6 @@ public class Note {
   String password, confirm;
   static CardLayout cardLayout;
   static JPanel cardLayoutPanel;
-
-  String longText = "This is a very long text that should wrap when it reaches 900 pixels in width. " +
-          "It will automatically wrap to the next line to fit within the specified width."
-          + "This is a very long text that should wrap when it reaches 900 pixels in width. " +
-          "It will automatically wrap to the next line to fit within the specified width."
-          + "This is a very long text that should wrap when it reaches 900 pixels in width. ";
 
   public Note() {
     JFrame frame = new JFrame("Note App");
@@ -46,23 +37,24 @@ public class Note {
     Dashboard dashboard = new Dashboard();
     Security secPage = new Security();
     Sketch sketch = new Sketch();
-    Display displayPage = new Display("myNote", longText);
     AddNote addNote = new AddNote();
     cardLayoutPanel.add(loginPage, "loginPage");
     cardLayoutPanel.add(SignPage, "SignPage");
     cardLayoutPanel.add(dashboard, "dashboard");
     cardLayoutPanel.add(secPage, "secPage");
-    cardLayoutPanel.add(displayPage, "displayPage");
     cardLayoutPanel.add(addNote, "addNote");
     cardLayoutPanel.add(sketch, "sketch");
 
     loginPage.signInButton.addActionListener(event -> {
       userName = loginPage.usernameField.getText();
       password = loginPage.passwordField.getText();
-      dashboard.welcome.setText("Hi, " + userName);
       try {
         if (UserAuthentication.authenticateLogin(userName, password)) {
-          CardLayout cardLayout = (CardLayout) cardLayoutPanel.getLayout();
+          user = FileManager.users.get(userName);
+          System.out.println(user.folderPath);
+          user.loadNotes();
+          dashboard.welcome.setText("Hi, " + user.userName);
+          dashboard.notes = user.notes;
           cardLayout.show(cardLayoutPanel, "dashboard");
         } else {
           new Error("Wrong Username or Password");
@@ -76,10 +68,10 @@ public class Note {
       userName = SignPage.usernameField.getText();
       password = SignPage.passwordField.getText();
       confirm = SignPage.confirmField.getText();
-      dashboard.welcome.setText("Hi, " + userName);
       try {
         if (UserAuthentication.authenticateRegister(userName, password, confirm) == 1) {
-          // here we should call createUser()
+          user = FileManager.users.get(userName);
+          dashboard.welcome.setText("Hi, " + user.userName);
           cardLayout.show(cardLayoutPanel, "dashboard");
         } else if (UserAuthentication.authenticateRegister(userName, password, confirm) == -1) {
           new Error("This Username Is Already Exist");
@@ -105,6 +97,7 @@ public class Note {
   }
 
   public static void main(String[] args) {
+    new FileManager();
     new Note();
   }
 }

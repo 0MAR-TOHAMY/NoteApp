@@ -1,10 +1,14 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dashboard extends JPanel {
   JButton addBtn, outBtn;
   JLabel welcome;
+
+  List<models.Note> notes = new ArrayList<>();
 
   public Dashboard() {
     setPreferredSize(new Dimension(1200, 700));
@@ -49,9 +53,9 @@ public class Dashboard extends JPanel {
     contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
     contentPanel.setBackground(Color.decode("#EBF8FF"));
 
-    contentPanel.add(new Item("MyDay", 25, true));
-    contentPanel.add(new Item("MyDay", 25, false));
-    contentPanel.add(new Item("MyDay", 25, true));
+    for (models.Note note : notes){
+      contentPanel.add(new Item(note.getTitle(), note.isSecure()));
+    }
 
     this.add(topPanel, BorderLayout.NORTH);
     this.add(contentPanel, BorderLayout.CENTER);

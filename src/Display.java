@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.IOException;
 
 public class Display extends JPanel {
     private JButton outBtn, clearTextBtn, changeTitleBtn;
@@ -31,7 +32,14 @@ public class Display extends JPanel {
         outBtn.setBackground(Note.dark);
         outBtn.setBorder(null);
         outBtn.setFocusable(false);
-        outBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "dashboard"));
+        outBtn.addActionListener(e -> {
+            try {
+                Note.user.saveNote(AddNote.sessionNote, textArea.getText());
+                Note.cardLayout.show(Note.cardLayoutPanel, "dashboard");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         topPanel.add(outBtn);
 
 
