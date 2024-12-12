@@ -62,12 +62,9 @@ public class Note {
     String imagePath = this.folderPath + "/images/" + imageTitle;
     Image newImage = new Image(imageTitle, createdAt, imagePath);
     // storing the image in the images folder
-<<<<<<< HEAD
-    src.FileManager.addImageToNoteFolder(imageTitle, imageOriginalPath, this.folderPath);
-=======
     src.FileManager.addImageToNoteFolder(imageTitle, imageOriginalPath.substring(1), this.folderPath);
     // adding the image to the images array so it can be displayed
->>>>>>> 6f5871662aea918ea66a531ce634ea49b2e4b323
+
     this.images.add(newImage);
   }
 

@@ -8,7 +8,7 @@ public class Display extends JPanel {
   static JLabel title;
   private JTextArea textArea;
 
-  public Display(String noteTitle, String noteContent) {
+  public Display(models.Note note) {
     setPreferredSize(new Dimension(1200, 700));
     setLayout(new BorderLayout());
     setBackground(Color.decode("#EBF8FF"));
@@ -18,7 +18,7 @@ public class Display extends JPanel {
     topPanel.setLayout(null);
     topPanel.setBackground(Note.dark);
 
-    title = new JLabel(noteTitle);
+    title = new JLabel(note.getTitle());
     title.setFont(Fonts.font4);
     title.setForeground(Color.white);
     title.setBounds(20, 12, 500, 33);
@@ -79,7 +79,7 @@ public class Display extends JPanel {
     changeTitleBtn.addActionListener(e -> new Change());
     buttonsPanel.add(changeTitleBtn);
 
-    textArea = new JTextArea(noteContent);
+    textArea = new JTextArea(note.getContent());
     textArea.setFont(Fonts.font3);
     textArea.setForeground(Note.dark);
     textArea.setLineWrap(true);
@@ -101,6 +101,11 @@ public class Display extends JPanel {
     sketchPanel.setBackground(Color.decode("#EBF8FF"));
 
     MediaPanel mediaPanel = new MediaPanel();
+    if (!note.getImages().isEmpty()){
+      for (models.Image image : note.getImages()){
+        mediaPanel.imagePaths.add(image.filePath);
+      }
+    }
 
     JPanel addingPanel = new JPanel(null);
     addingPanel.setPreferredSize(new Dimension(590, 50));

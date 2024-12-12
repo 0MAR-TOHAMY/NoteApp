@@ -93,7 +93,7 @@ public class AddNote extends JPanel {
                 }else {
                     sessionNote = Note.user.createNote(title);
                 }
-                Display displayPage = new Display(title, "");
+                Display displayPage = new Display(sessionNote);
                 Note.cardLayoutPanel.add(displayPage, "displayPage");
                 Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
             }else {

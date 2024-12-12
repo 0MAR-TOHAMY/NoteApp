@@ -52,8 +52,7 @@ public class Dashboard extends JPanel {
     contentPanel.setBackground(Color.decode("#EBF8FF"));
 
     for (models.Note note : Note.user.notes){
-      contentPanel.add(new Item(note.getTitle(), note.isSecure()));
-      System.out.println(note.getFolderPath());
+      contentPanel.add(new Item(note.getTitle(), note.isSecure(), note));
     }
 
     this.add(topPanel, BorderLayout.NORTH);

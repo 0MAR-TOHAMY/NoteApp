@@ -1,12 +1,13 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.IOException;
 
 public class Item extends JPanel {
   JLabel Title, secure;
   JButton showBtn;
 
-  public Item(String title, boolean pass) {
+  public Item(String title, boolean pass, models.Note note) {
     setLayout(new BorderLayout());
     setBackground(Note.dark);
 
@@ -27,7 +28,20 @@ public class Item extends JPanel {
     showBtn.setBorder(null);
     showBtn.setFocusable(false);
     showBtn.setBorder(new EmptyBorder(0, 10, 0, 10));
-    showBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "secPage"));
+    showBtn.addActionListener(e -> {
+        try {
+            models.Note itemNote = Note.user.getNote(note);
+            if (itemNote.isSecure()){
+              Note.cardLayout.show(Note.cardLayoutPanel, "secPage");
+            }else{
+              Display displayPage = new Display(itemNote);
+              Note.cardLayoutPanel.add(displayPage, "displayPage");
+              Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    });
     btns.add(showBtn, BorderLayout.EAST);
 
     ImageIcon secIcon = new ImageIcon("./assets/lock.png");
