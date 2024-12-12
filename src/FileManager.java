@@ -122,9 +122,10 @@ public class FileManager {
   public static void saveSecureNote(SecureNote note) throws IOException {
     saveNote(note);
     Path jsonFilePath = Paths.get(note.getFolderPath() + "/note.json");
-    Files.createFile(jsonFilePath);
-    JSONObject noteJsonObject = new JSONObject();
+    String noteJson = new String(Files.readAllBytes(jsonFilePath));
+    JSONObject noteJsonObject = new JSONObject(noteJson);
     noteJsonObject.put("password", note.getPassword());
+    Files.write(jsonFilePath, noteJsonObject.toString(4).getBytes());
   }
 
   // these 4 methods are helpers for the create note method
@@ -230,12 +231,12 @@ public class FileManager {
       JSONObject noteObject = new JSONObject(noteJson);
 
       String title = noteObject.getString("title");
-      String password = noteObject.getString("password");
       boolean isSecure = noteObject.getBoolean("isSecure");
 
-      if (isSecure)
+      if (isSecure) {
+        String password = noteObject.getString("password");
         return new SecureNote(title, password, folderPath);
-      else
+      } else
         return new Note(title, folderPath);
 
     } catch (IOException e) {
