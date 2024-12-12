@@ -1,3 +1,5 @@
+import models.SecureNote;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -29,18 +31,23 @@ public class Item extends JPanel {
     showBtn.setFocusable(false);
     showBtn.setBorder(new EmptyBorder(0, 10, 0, 10));
     showBtn.addActionListener(e -> {
-        try {
-            models.Note itemNote = Note.user.getNote(note);
-            if (itemNote.isSecure()){
-              Note.cardLayout.show(Note.cardLayoutPanel, "secPage");
-            }else{
-              Display displayPage = new Display(itemNote);
-              Note.cardLayoutPanel.add(displayPage, "displayPage");
-              Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+      try {
+        models.Note newNote = note;
+        if (note.isSecure()) {
+          newNote = (SecureNote) note;
         }
+        models.Note itemNote = Note.user.getNote(newNote);
+
+        if (itemNote.isSecure()) {
+          Note.cardLayout.show(Note.cardLayoutPanel, "secPage");
+        } else {
+          Display displayPage = new Display(itemNote);
+          Note.cardLayoutPanel.add(displayPage, "displayPage");
+          Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
+        }
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
     });
     btns.add(showBtn, BorderLayout.EAST);
 
