@@ -39,6 +39,8 @@ public class Item extends JPanel {
         models.Note itemNote = Note.user.getNote(newNote);
 
         if (itemNote.isSecure()) {
+          Security secPage = new Security((SecureNote) note);
+          Note.cardLayoutPanel.add(secPage, "secPage");
           Note.cardLayout.show(Note.cardLayoutPanel, "secPage");
         } else {
           Display displayPage = new Display(itemNote);

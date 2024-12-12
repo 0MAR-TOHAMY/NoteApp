@@ -64,9 +64,9 @@ public class FileManager {
 
   private JSONObject createUserJsonObject(String userName, String password, String folderPath) {
     return new JSONObject()
-            .put("userName", userName)
-            .put("password", password)
-            .put("folderPath", folderPath);
+        .put("userName", userName)
+        .put("password", password)
+        .put("folderPath", folderPath);
   }
 
   private void storeUserInJSONFile(String userName, String password, String folderPath) {
@@ -98,7 +98,6 @@ public class FileManager {
       System.err.println("Invalid JSON format: " + e.getMessage());
     }
   }
-
 
   // this will be used in the user class to make a note
   public static void saveNote(Note note) throws IOException {
@@ -159,19 +158,19 @@ public class FileManager {
 
   private static JSONObject makeImageJsonObject(Image image) {
     return new JSONObject()
-            .put("title", image.title)
-            .put("createdAt", image.createdAt)
-            .put("filePath", image.filePath);
+        .put("title", image.title)
+        .put("createdAt", image.createdAt)
+        .put("filePath", image.filePath);
   }
 
   private static JSONObject makeSketchJsonObject(Sketch sketch) {
-    if (sketch == null) return null;
+    if (sketch == null)
+      return null;
     return new JSONObject()
-            .put("title", sketch.title)
-            .put("createdAt", sketch.createdAt)
-            .put("filePath", sketch.filePath);
+        .put("title", sketch.title)
+        .put("createdAt", sketch.createdAt)
+        .put("filePath", sketch.filePath);
   }
-
 
   // this will be used in the note class to add an image
   // this is used to copy the note from its location to the note folder
@@ -274,12 +273,13 @@ public class FileManager {
     if (sketchJsonObject.isNull("title")) {
       return null;
     }
-    String title = sketchJsonObject.getString("title");
-    Long createdAt = sketchJsonObject.getLong("createdAt");
-    String filePath = sketchJsonObject.getString("filePath");
+    // Validate keys before accessing them
+    String title = sketchJsonObject.optString("title", null); // Default to null if the key doesn't exist
+    Long createdAt = sketchJsonObject.has("createdAt") ? sketchJsonObject.getLong("createdAt") : null;
+    String filePath = sketchJsonObject.optString("filePath", null);
+
     return new Sketch(title, createdAt, filePath);
   }
-
 
   private File findFileInFolder(File folder, String fileName) {
     File[] files = folder.listFiles();
