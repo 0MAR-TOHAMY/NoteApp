@@ -9,7 +9,6 @@ public class UserAuthentication {
   public static int authenticateRegister(String username, String password, String confirm) throws Exception {
     Properties properties = new Properties();
     properties.load(new FileInputStream(PROPERTIES_FILE));
-
     if (username.length() < 1 || password.length() < 1) {
       return -3;
     } else {
