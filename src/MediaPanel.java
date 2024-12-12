@@ -10,28 +10,21 @@ import javax.imageio.ImageIO;
 
 public class MediaPanel extends JPanel {
 
-    List<String> imagePaths = new ArrayList<>();
-
-    public MediaPanel() {
+    public MediaPanel(models.Note note) {
         setPreferredSize(new Dimension(590, 600));
         setLayout(new BorderLayout());
         setBackground(Color.white);
-        updateImages();
+        updateImages(note);
     }
 
-    public void addImage(String imagePath) {
-        imagePaths.add(imagePath);
-        updateImages();
-    }
-
-    private void updateImages() {
+    void updateImages(models.Note note) {
         removeAll();
 
-        JPanel imagePanel = new JPanel(new GridLayout(imagePaths.size(), 1, 5, 5));
+        JPanel imagePanel = new JPanel(new GridLayout(note.getImages().size(), 1, 5, 5));
         imagePanel.setBackground(Color.decode("#EBF8FF"));
-        for (String imagePath : imagePaths) {
+        for (models.Image imagePath : note.getImages()) {
             try {
-                Image image = ImageIO.read(new File(imagePath)).getScaledInstance(580, 350, Image.SCALE_SMOOTH);
+                Image image = ImageIO.read(new File(imagePath.filePath)).getScaledInstance(580, 350, Image.SCALE_SMOOTH);
                 imagePanel.add(new JLabel(new ImageIcon(image)));
             } catch (IOException e) {
                 System.err.println("Error loading image: " + imagePath);

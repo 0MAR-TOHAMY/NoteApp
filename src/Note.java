@@ -36,13 +36,11 @@ public class Note {
     Login loginPage = new Login();
     Sign SignPage = new Sign();
 
-    Security secPage = new Security();
+
     Sketch sketch = new Sketch();
     AddNote addNote = new AddNote();
     cardLayoutPanel.add(loginPage, "loginPage");
     cardLayoutPanel.add(SignPage, "SignPage");
-
-    cardLayoutPanel.add(secPage, "secPage");
     cardLayoutPanel.add(addNote, "addNote");
     cardLayoutPanel.add(sketch, "sketch");
 
@@ -90,7 +88,6 @@ public class Note {
 
     loginPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "SignPage"));
     SignPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "loginPage"));
-    secPage.back.addActionListener(e -> cardLayout.show(cardLayoutPanel, "dashboard"));
     addNote.back.addActionListener(e -> cardLayout.show(cardLayoutPanel, "dashboard"));
 
     frame.add(cardLayoutPanel, BorderLayout.CENTER);

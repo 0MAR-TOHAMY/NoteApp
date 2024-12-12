@@ -34,8 +34,8 @@ public class Display extends JPanel {
     outBtn.setFocusable(false);
     outBtn.addActionListener(e -> {
       try {
-        AddNote.sessionNote.setTitle(title.getText());
-        Note.user.saveNote(AddNote.sessionNote, textArea.getText());
+        note.setTitle(title.getText());
+        Note.user.saveNote(note, textArea.getText());
         Note.user.loadNotes();
         Dashboard dashboard = new Dashboard();
         dashboard.welcome.setText("Hi, " + Note.user.userName);
@@ -100,12 +100,7 @@ public class Display extends JPanel {
     sketchPanel.setPreferredSize(new Dimension(590, 600));
     sketchPanel.setBackground(Color.decode("#EBF8FF"));
 
-    MediaPanel mediaPanel = new MediaPanel();
-    if (!note.getImages().isEmpty()){
-      for (models.Image image : note.getImages()){
-        mediaPanel.imagePaths.add(image.filePath);
-      }
-    }
+    MediaPanel mediaPanel = new MediaPanel(note);
 
     JPanel addingPanel = new JPanel(null);
     addingPanel.setPreferredSize(new Dimension(590, 50));
@@ -136,8 +131,8 @@ public class Display extends JPanel {
       String img = FileChooser.chooseImageFile();
       if (img != null) {
         try {
-          mediaPanel.addImage(img);
           AddNote.sessionNote.addImage(img);
+          mediaPanel.updateImages(note);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }

@@ -283,9 +283,14 @@ public class FileManager {
     if (sketchJsonObject == null) {
       return null;
     }
-    String title = sketchJsonObject.getString("title");
-    Long createdAt = sketchJsonObject.getLong("createdAt");
-    String filePath = sketchJsonObject.getString("filePath");
+    // Validate keys before accessing them
+    String title = sketchJsonObject.optString("title", null); // Default to null if the key doesn't exist
+    Long createdAt = sketchJsonObject.has("createdAt") ? sketchJsonObject.getLong("createdAt") : null;
+    String filePath = sketchJsonObject.optString("filePath", null);
+
+    if (title == null || createdAt == null || filePath == null) {
+      return null; // Return null if any required field is missing
+    }
     return new Sketch(title, createdAt, filePath);
   }
 

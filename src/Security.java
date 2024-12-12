@@ -1,3 +1,5 @@
+import models.SecureNote;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -8,7 +10,7 @@ public class Security extends JPanel {
     JLabel title, title2;
     JPasswordField password;
 
-    public Security(){
+    public Security(SecureNote note){
         setPreferredSize(new Dimension(1200, 700));
         setLayout(new BorderLayout());
         setBackground(Color.white);
@@ -73,7 +75,18 @@ public class Security extends JPanel {
         submit.setFont(Fonts.font2);
         back.setFont(Fonts.font3);
 
-        submit.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "displayPage"));
+        submit.addActionListener(e -> {
+            String pass = password.getText();
+            if (pass.equals(note.getPassword())){
+                Display displayPage = new Display(note);
+                Note.cardLayoutPanel.add(displayPage, "displayPage");
+                Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
+            }else {
+                new Error("Invalid Pass, Try again or leave.");
+            }
+        });
+
+        back.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "dashboard"));
 
         rightPanel.add(title);
         rightPanel.add(title2);

@@ -1,3 +1,5 @@
+import models.SecureNote;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -32,6 +34,8 @@ public class Item extends JPanel {
         try {
             models.Note itemNote = Note.user.getNote(note);
             if (itemNote.isSecure()){
+              Security secPage = new Security((SecureNote) note);
+              Note.cardLayoutPanel.add(secPage, "secPage");
               Note.cardLayout.show(Note.cardLayoutPanel, "secPage");
             }else{
               Display displayPage = new Display(itemNote);
