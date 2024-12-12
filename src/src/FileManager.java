@@ -64,9 +64,9 @@ public class FileManager {
 
   private JSONObject createUserJsonObject(String userName, String password, String folderPath) {
     return new JSONObject()
-        .put("userName", userName)
-        .put("password", password)
-        .put("folderPath", folderPath);
+            .put("userName", userName)
+            .put("password", password)
+            .put("folderPath", folderPath);
   }
 
   private void storeUserInJSONFile(String userName, String password, String folderPath) {
@@ -158,18 +158,18 @@ public class FileManager {
 
   private static JSONObject makeImageJsonObject(Image image) {
     return new JSONObject()
-        .put("title", image.title)
-        .put("createdAt", image.createdAt)
-        .put("filePath", image.filePath);
+            .put("title", image.title)
+            .put("createdAt", image.createdAt)
+            .put("filePath", image.filePath);
   }
 
   private static JSONObject makeSketchJsonObject(Sketch sketch) {
     if (sketch == null)
-      return null;
+      return new JSONObject();
     return new JSONObject()
-        .put("title", sketch.title)
-        .put("createdAt", sketch.createdAt)
-        .put("filePath", sketch.filePath);
+            .put("title", sketch.title)
+            .put("createdAt", sketch.createdAt)
+            .put("filePath", sketch.filePath);
   }
 
   // this will be used in the note class to add an image
