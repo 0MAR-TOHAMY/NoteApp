@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class Display extends JPanel {
@@ -12,6 +13,10 @@ public class Display extends JPanel {
     setPreferredSize(new Dimension(1200, 700));
     setLayout(new BorderLayout());
     setBackground(Color.decode("#EBF8FF"));
+
+    File place = note.addSketch();
+    Sketch sketch = new Sketch(place);
+    Note.cardLayoutPanel.add(sketch, "sketch");
 
     JPanel topPanel = new JPanel();
     topPanel.setPreferredSize(new Dimension(1200, 60));
@@ -106,7 +111,7 @@ public class Display extends JPanel {
     addingPanel.setPreferredSize(new Dimension(590, 50));
     addingPanel.setBackground(Color.decode("#EBF8FF"));
 
-    JButton addSketchBtn = new JButton("Add Sketch");
+    JButton addSketchBtn = new JButton("Note Sketch");
     addSketchBtn.setBounds(0, 5, 290, 40);
     addSketchBtn.setBorder(null);
     addSketchBtn.setFocusable(false);
@@ -115,6 +120,7 @@ public class Display extends JPanel {
     addSketchBtn.setForeground(Color.white);
     addSketchBtn.setFont(Fonts.font2);
     addSketchBtn.addActionListener(e -> {
+      sketch.loadSketch(place);
       Note.cardLayout.show(Note.cardLayoutPanel, "sketch");
     });
     addingPanel.add(addSketchBtn);
@@ -131,7 +137,7 @@ public class Display extends JPanel {
       String img = FileChooser.chooseImageFile();
       if (img != null) {
         try {
-          AddNote.sessionNote.addImage(img);
+          note.addImage(img);
           mediaPanel.updateImages(note);
         } catch (IOException ex) {
           throw new RuntimeException(ex);

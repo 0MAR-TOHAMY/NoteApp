@@ -36,13 +36,10 @@ public class Note {
     Login loginPage = new Login();
     Sign SignPage = new Sign();
 
-
-    Sketch sketch = new Sketch();
     AddNote addNote = new AddNote();
     cardLayoutPanel.add(loginPage, "loginPage");
     cardLayoutPanel.add(SignPage, "SignPage");
     cardLayoutPanel.add(addNote, "addNote");
-    cardLayoutPanel.add(sketch, "sketch");
 
     loginPage.signInButton.addActionListener(event -> {
       userName = loginPage.usernameField.getText();

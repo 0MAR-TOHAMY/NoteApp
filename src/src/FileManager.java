@@ -3,8 +3,6 @@ package src;
 import models.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +13,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class FileManager {
   public static HashMap<String, User> users = new HashMap<>();

@@ -12,7 +12,7 @@ public class Sketch extends JPanel {
   private Graphics2D g2d;
   private int lastX, lastY;
 
-  public Sketch() {
+  public Sketch(File place) {
     setPreferredSize(new Dimension(1200, 700));
     setLayout(new BorderLayout());
     setBackground(Color.decode("#EBF8FF"));
@@ -29,7 +29,10 @@ public class Sketch extends JPanel {
     save.setBorder(null);
     save.setFocusable(false);
     save.setBounds(20, 15, 70, 30);
-    save.addActionListener(e -> saveSketch(new File("database/UsersData/test.png")));
+    save.addActionListener(e -> {
+      saveSketch(place);
+      Note.cardLayout.show(Note.cardLayoutPanel, "displayPage");
+    });
     topPanel.add(save);
 
     ImageIcon outIcon = new ImageIcon("./assets/next.png");
@@ -40,7 +43,7 @@ public class Sketch extends JPanel {
     outBtn.setBackground(Note.dark);
     outBtn.setBorder(null);
     outBtn.setFocusable(false);
-    outBtn.addActionListener(e -> loadSketch(new File("database/UsersData/test.png")));
+    outBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "displayPage"));
     topPanel.add(outBtn);
 
     b = new JButton("");
@@ -170,10 +173,8 @@ public class Sketch extends JPanel {
   public void saveSketch(File file) {
     try {
       ImageIO.write(canvas, "PNG", file);
-      JOptionPane.showMessageDialog(this, "Sketch saved successfully!");
     } catch (Exception ex) {
       ex.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Error saving sketch.");
     }
   }
 
@@ -185,7 +186,6 @@ public class Sketch extends JPanel {
       repaint();
     } catch (Exception ex) {
       ex.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Error loading sketch.");
     }
   }
 }
