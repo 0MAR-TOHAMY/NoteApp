@@ -86,7 +86,10 @@ public class Sketch extends JPanel {
     bl.addActionListener(e -> g2d.setPaint(Color.BLACK));
     topPanel.add(bl);
 
-    w = new JButton("");
+    ImageIcon removeIcon = new ImageIcon("./assets/eraser.png");
+    Image scaledImage = removeIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+    w = new JButton(scaledIcon);
     w.setBounds(590, 15, 30, 30);
     w.setBackground(Color.WHITE);
     w.setBorder(null);

@@ -120,7 +120,9 @@ public class Display extends JPanel {
     addSketchBtn.setForeground(Color.white);
     addSketchBtn.setFont(Fonts.font2);
     addSketchBtn.addActionListener(e -> {
-      sketch.loadSketch(place);
+        try {Note.user.saveNote(note, textArea.getText());}
+        catch (IOException ex) {throw new RuntimeException(ex);}
+        sketch.loadSketch(place);
       Note.cardLayout.show(Note.cardLayoutPanel, "sketch");
     });
     addingPanel.add(addSketchBtn);

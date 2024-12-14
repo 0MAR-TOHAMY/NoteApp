@@ -1,11 +1,10 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.imageio.ImageIO;
 
 public class MediaPanel extends JPanel {
@@ -22,13 +21,35 @@ public class MediaPanel extends JPanel {
 
         JPanel imagePanel = new JPanel(new GridLayout(note.getImages().size(), 1, 5, 5));
         imagePanel.setBackground(Color.decode("#EBF8FF"));
+
         for (models.Image imagePath : note.getImages()) {
             try {
                 Image image = ImageIO.read(new File(imagePath.filePath)).getScaledInstance(580, 350, Image.SCALE_SMOOTH);
-                imagePanel.add(new JLabel(new ImageIcon(image)));
+                JLabel imageLabel = new JLabel(new ImageIcon(image));
+                imagePanel.add(imageLabel);
+
+                // Add a mouse listener to handle click events
+                imageLabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        // Show confirmation dialog
+                        int response = JOptionPane.showConfirmDialog(
+                                MediaPanel.this,
+                                "Are you sure you want to remove this image?",
+                                "Confirm Deletion",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.WARNING_MESSAGE
+                        );
+
+                        if (response == JOptionPane.YES_OPTION) {
+                            try {note.removeImage(imagePath);}
+                            catch (IOException ex) {throw new RuntimeException(ex);}
+                            updateImages(note);
+                        }
+                    }
+                });
             } catch (IOException e) {
-                System.err.println("Error loading image: " + imagePath);
-                e.printStackTrace();
+                System.err.println("Error loading image: " + imagePath.filePath);
             }
         }
 

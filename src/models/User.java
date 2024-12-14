@@ -1,6 +1,9 @@
 package models;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -48,5 +51,23 @@ public class User {
 
   public SecureNote getNote(SecureNote note) throws IOException {
     return src.FileManager.getSecureNote(note);
+  }
+
+  public void removeNote(Note note) throws IOException {
+
+    Path path = Path.of(note.getFolderPath());
+
+    Files.walkFileTree(path, new SimpleFileVisitor<>() {
+      @Override
+      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        Files.delete(file);
+        return FileVisitResult.CONTINUE;
+      }
+      @Override
+      public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        Files.delete(dir);
+        return FileVisitResult.CONTINUE;
+      }
+    });
   }
 }

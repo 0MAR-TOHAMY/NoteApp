@@ -73,11 +73,9 @@ public class Note {
     return folders[folders.length - 1];
   }
 
-  public Image removeImage(int index) throws IOException {
-    Image removedImage = images.remove(index);
-    // this will return a boolean you can use it if you want
-    src.FileManager.removeImageFromNoteFolder(folderPath + "/" + removedImage.title);
-    return removedImage;
+  public void removeImage(Image image) throws IOException {
+    images.remove(image);
+    src.FileManager.removeImageFromNoteFolder(image.filePath);
   }
 
   public File addSketch() {

@@ -36,11 +36,8 @@ public class Note {
     Login loginPage = new Login();
     Sign SignPage = new Sign();
 
-    AddNote addNote = new AddNote();
     cardLayoutPanel.add(loginPage, "loginPage");
     cardLayoutPanel.add(SignPage, "SignPage");
-    cardLayoutPanel.add(addNote, "addNote");
-
     loginPage.signInButton.addActionListener(event -> {
       userName = loginPage.usernameField.getText();
       password = loginPage.passwordField.getText();
@@ -85,7 +82,6 @@ public class Note {
 
     loginPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "SignPage"));
     SignPage.switchScreen.addActionListener(e -> cardLayout.show(cardLayoutPanel, "loginPage"));
-    addNote.back.addActionListener(e -> cardLayout.show(cardLayoutPanel, "dashboard"));
 
     frame.add(cardLayoutPanel, BorderLayout.CENTER);
     frame.setVisible(true);

@@ -30,7 +30,10 @@ public class Dashboard extends JPanel {
     addBtn.setBackground(Note.dark);
     addBtn.setBorder(null);
     addBtn.setFocusable(false);
-    addBtn.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "addNote"));
+    addBtn.addActionListener(e -> {
+      AddNote addNote = new AddNote();
+      Note.cardLayoutPanel.add(addNote, "addNote");
+      Note.cardLayout.show(Note.cardLayoutPanel, "addNote");});
     topPanel.add(addBtn);
 
     ImageIcon outIcon = new ImageIcon("./assets/out.png");

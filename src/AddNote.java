@@ -101,6 +101,8 @@ public class AddNote extends JPanel {
             }
         });
 
+        back.addActionListener(e -> Note.cardLayout.show(Note.cardLayoutPanel, "dashboard"));
+
         rightPanel.add(title);
         rightPanel.add(title2);
         rightPanel.add(titleField);
